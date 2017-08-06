@@ -2,7 +2,8 @@ docker network create frontend
 docker network create backend
 docker run --name ng1 --net=backend -v /root/html1:/usr/share/nginx/html:ro -d nginx
 docker run --name ng2 --net=backend -v /root/html2:/usr/share/nginx/html:ro -d nginx
-docker run -d --net=backend --name hap -v /root/haproxy/haproxy.cfg:/usr/local/etc/haproxy.cfg:ro hapro
-xy haproxy -d -f /usr/local/etc/haproxy/haproxy.cfg
+docker build -t haproxyy .
+docker run -d --net=backend --name hap haproxyy haproxy -d -f /usr/local/etc/haproxy/haproxy.cfg
 docker network connect frontend hap
-docker run -it -rm --net=frontend busybox wget -qO hap/test.hml
+Run the below command twice
+docker run -it -rm --net=frontend busybox wget -O- hap/index.html
